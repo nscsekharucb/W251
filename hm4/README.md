@@ -23,7 +23,9 @@ And running the mumbler
 
 ```
 [root@gpfs1 ~]# cd /gpfs/gpfsfpo/
-[root@gpfs1 gpfsfpo]# sh scripts/mumbler.sh ﬂoors 4
-Given word: ﬂoors
-:::::
+[root@gpfs1 gpfsfpo]# sh scripts/mumbler.sh available 3
+Given word: available
+next word-1: monitors
+next word-2: television
+next word-3: lawyer
 ```
