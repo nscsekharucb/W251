@@ -7,7 +7,7 @@
 #
 # 1. Arguments
 #
-# mumbler <starting word> <max number of words>
+# mumbler.sh <starting word> <max number of words>
 #
 if [ $# -ne 2 ]; then
    echo "Usage: $0 <starting word> <max number of words>"
@@ -16,8 +16,7 @@ if [ $# -ne 2 ]; then
 starting_word=$1
 max_words=$2
 
-echo $starting_word
-echo $max_words
+echo "Given word: "$starting_word
 
 firstword=$starting_word
 
@@ -29,9 +28,9 @@ do
 # Find the files to search
 #
 rm tmplist.*
-grep -E "^$starting_word " gpfs1.map  >> tmplist.gpfs1
-grep -E "^$starting_word " gpfs2.map  >> tmplist.gpfs2
-grep -E "^$starting_word " gpfs3.map  >> tmplist.gpfs3
+grep -E "^$firstword " gpfs1.map  >> tmplist.gpfs1
+grep -E "^$firstword " gpfs2.map  >> tmplist.gpfs2
+grep -E "^$firstword " gpfs3.map  >> tmplist.gpfs3
 
 cat tmplist.gpfs1 | awk '{print $NF}' >> tmplist.zipfiles.gpfs1
 cat tmplist.gpfs2 | awk '{print $NF}' >> tmplist.zipfiles.gpfs2
@@ -90,8 +89,15 @@ if [ $next_words_count -eq 0 ]; then
 fi
 next_word=`python scripts/random_picker.py tmplist.wordfreq`
 
-echo $next_word
 
-first_word=$next_word
+#
+# Get ready for next iteration
+#
+firstword=$next_word
 next_words_identified=`expr $next_words_identified + 1`
+
+#
+# Report the next word identified in this iteration
+#
+echo "next word-$next_words_identified: "$next_word
 done
