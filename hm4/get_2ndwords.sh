@@ -12,3 +12,5 @@ while read filename
 do
    zcat $filename | grep -E "^$firstword " | awk '{print $2}' 
 done < $zipfilelist
+
+echo "GPFS-DONE"
